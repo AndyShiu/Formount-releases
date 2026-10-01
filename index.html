@@ -6,8 +6,7 @@
 <title>Formount — 把 NAS、伺服器和雲端硬碟放進 Finder</title>
 <meta name="description" content="Formount 是免費的 macOS App,把 NAS、伺服器和雲端硬碟掛載到 Finder。支援 WebDAV、SMB、SFTP、FTP、S3、Google 雲端硬碟、OneDrive、Dropbox。">
 <link rel="canonical" href="https://formount.andyshiu.com/">
-<meta name="theme-color" content="#FBFCFA" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#111311" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#FBFCFA">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://formount.andyshiu.com/">
 <meta property="og:title" content="Formount — 把 NAS、伺服器和雲端硬碟放進 Finder">
@@ -17,7 +16,7 @@
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" href="assets/appicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<link rel="stylesheet" href="styles.css?v=1790839336">
+<link rel="stylesheet" href="styles.css?v=1790840745">
 <!-- 在畫面出現前套用手動選的深淺色與語言,避免閃一下 -->
 <script>
   try {
@@ -38,7 +37,7 @@
   "url": "https://formount.andyshiu.com/"
 }
 </script>
-<script src="site.js?v=1790839336" defer></script>
+<script src="site.js?v=1790840745" defer></script>
 </head>
 <body>
 
@@ -160,10 +159,10 @@
       <h2 class="h2" data-i18n="panelTitle">隨時知道狀況</h2>
       <p class="lead" data-i18n="panelBody">選單列圖示會顯示目前狀態。點開可以看到每組連線的狀態、正在傳輸的檔案和進度、最近的衝突。斷線或登入過期時會用通知告訴你。</p>
       <div class="states">
-        <div class="state"><i style="--m:url(assets/menubar-normal.svg)"></i><span data-i18n="st0">一般</span></div>
-        <div class="state"><i style="--m:url(assets/menubar-sync.svg)"></i><span data-i18n="st1">同步中</span></div>
-        <div class="state"><i style="--m:url(assets/menubar-alert.svg)"></i><span data-i18n="st2">需要處理</span></div>
-        <div class="state"><i style="--m:url(assets/menubar-pause.svg)"></i><span data-i18n="st3">已暫停</span></div>
+        <div class="state" tabindex="0" data-state="normal"><i style="--m:url(assets/menubar-normal.svg)"></i><span data-i18n="st0">一般</span></div>
+        <div class="state" tabindex="0" data-state="sync"><i style="--m:url(assets/menubar-sync.svg)"></i><span data-i18n="st1">同步中</span></div>
+        <div class="state" tabindex="0" data-state="alert"><i style="--m:url(assets/menubar-alert.svg)"></i><span data-i18n="st2">需要處理</span></div>
+        <div class="state" tabindex="0" data-state="pause"><i style="--m:url(assets/menubar-pause.svg)"></i><span data-i18n="st3">已暫停</span></div>
       </div>
     </div>
     <div class="panel-slot"><div class="panel-scale" data-panel></div></div>
@@ -286,15 +285,15 @@
       </div>
       <div class="f-cols"><div data-i18n="fd.hName">名稱</div><div></div><div data-i18n="fd.hDate">修改日期</div><div style="text-align:right" data-i18n="fd.hSize">大小</div></div>
       <div class="f-rows">
-        <div class="f-row"><div class="f-name"><i class="f-folder"></i><span data-i18n="fd.rows.0">照片 2026</span></div><div class="f-state"></div><div class="f-meta" data-i18n="fd.dates.0">今天 09:12</div><div class="f-size">—</div></div>
-        <div class="f-row"><div class="f-name"><i class="f-folder"></i><span data-i18n="fd.rows.1">專案提案</span></div><div class="f-state"></div><div class="f-meta" data-i18n="fd.dates.1">昨天 18:40</div><div class="f-size">—</div></div>
-        <div class="f-row"><div class="f-name"><i class="f-file" style="--c:#3B6FD6"></i><span data-i18n="fd.rows.2">封面設計.psd</span></div><div class="f-state"><i class="f-ring"></i></div><div class="f-meta" data-i18n="fd.dates.2">今天 10:21</div><div class="f-size">1.2 GB</div></div>
-        <div class="f-row"><div class="f-name"><i class="f-file" style="--c:#D9534F"></i><span data-i18n="fd.rows.3">會議記錄 0930.pdf</span></div><div class="f-state"></div><div class="f-meta" data-i18n="fd.dates.3">9月30日 16:05</div><div class="f-size">640 KB</div></div>
-        <div class="f-row"><div class="f-name"><i class="f-file" style="--c:#3FA35B"></i><span data-i18n="fd.rows.4">2026 年度預算.numbers</span></div><div class="f-state"><svg class="i"><use href="assets/icons.svg#i-cloud-download"/></svg></div><div class="f-meta" data-i18n="fd.dates.4">9月28日 11:30</div><div class="f-size">286 KB</div></div>
-        <div class="f-row"><div class="f-name"><i class="f-file" style="--c:#8E6BD8"></i><span data-i18n="fd.rows.5">婚禮影片 4K.mov</span></div><div class="f-state"><svg class="i"><use href="assets/icons.svg#i-cloud-download"/></svg></div><div class="f-meta" data-i18n="fd.dates.5">9月14日 20:02</div><div class="f-size">8.4 GB</div></div>
-        <div class="f-row"><div class="f-name"><i class="f-file" style="--c:#D9534F"></i><span data-i18n="fd.rows.6">合約掃描.pdf</span></div><div class="f-state"><svg class="i"><use href="assets/icons.svg#i-cloud-download"/></svg></div><div class="f-meta" data-i18n="fd.dates.6">8月2日 14:47</div><div class="f-size">2.1 MB</div></div>
+        <div class="f-row" data-kind="folder"><div class="f-name"><i class="f-folder"></i><span data-i18n="fd.rows.0">照片 2026</span></div><div class="f-state"></div><div class="f-meta" data-i18n="fd.dates.0">今天 09:12</div><div class="f-size">—</div></div>
+        <div class="f-row" data-kind="folder"><div class="f-name"><i class="f-folder"></i><span data-i18n="fd.rows.1">專案提案</span></div><div class="f-state"></div><div class="f-meta" data-i18n="fd.dates.1">昨天 18:40</div><div class="f-size">—</div></div>
+        <div class="f-row" data-kind="loading"><div class="f-name"><i class="f-file" style="--c:#3B6FD6"></i><span data-i18n="fd.rows.2">封面設計.psd</span></div><div class="f-state"><i class="f-ring"></i></div><div class="f-meta" data-i18n="fd.dates.2">今天 10:21</div><div class="f-size">1.2 GB</div></div>
+        <div class="f-row" data-kind="local"><div class="f-name"><i class="f-file" style="--c:#D9534F"></i><span data-i18n="fd.rows.3">會議記錄 0930.pdf</span></div><div class="f-state"></div><div class="f-meta" data-i18n="fd.dates.3">9月30日 16:05</div><div class="f-size">640 KB</div></div>
+        <div class="f-row" data-kind="cloud"><div class="f-name"><i class="f-file" style="--c:#3FA35B"></i><span data-i18n="fd.rows.4">2026 年度預算.numbers</span></div><div class="f-state"><svg class="i"><use href="assets/icons.svg#i-cloud-download"/></svg></div><div class="f-meta" data-i18n="fd.dates.4">9月28日 11:30</div><div class="f-size">286 KB</div></div>
+        <div class="f-row" data-kind="cloud"><div class="f-name"><i class="f-file" style="--c:#8E6BD8"></i><span data-i18n="fd.rows.5">婚禮影片 4K.mov</span></div><div class="f-state"><svg class="i"><use href="assets/icons.svg#i-cloud-download"/></svg></div><div class="f-meta" data-i18n="fd.dates.5">9月14日 20:02</div><div class="f-size">8.4 GB</div></div>
+        <div class="f-row" data-kind="cloud"><div class="f-name"><i class="f-file" style="--c:#D9534F"></i><span data-i18n="fd.rows.6">合約掃描.pdf</span></div><div class="f-state"><svg class="i"><use href="assets/icons.svg#i-cloud-download"/></svg></div><div class="f-meta" data-i18n="fd.dates.6">8月2日 14:47</div><div class="f-size">2.1 MB</div></div>
       </div>
-      <div class="f-status" data-i18n="fd.status">7 個項目 · 已下載 2 個</div>
+      <div class="f-status" data-finder-status>7 個項目 · 已下載 2 個</div>
     </div>
   </div>
 </template>
@@ -302,8 +301,8 @@
 <template id="tpl-panel">
   <div class="mb">
     <div class="mb-head">
-      <div class="mb-dot"><svg class="i"><use href="assets/icons.svg#i-arrow-up-down"/></svg></div>
-      <div class="mb-ht"><div class="mb-t1" data-i18n="mb.title">同步中 2 個檔案 · 2.1 MB/s</div><div class="mb-t2" data-i18n="mb.sub">4 組連線都正常</div></div>
+      <div class="mb-dot" data-head-dot><svg class="i"><use href="assets/icons.svg#i-arrow-up-down"/></svg></div>
+      <div class="mb-ht"><div class="mb-t1" data-head-title data-i18n="mb.title">同步中 2 個檔案 · 2.1 MB/s</div><div class="mb-t2" data-head-sub data-i18n="mb.sub">4 組連線都正常</div></div>
       <div class="mb-btn"><svg class="i"><use href="assets/icons.svg#i-app-window"/></svg></div>
       <div class="mb-btn"><svg class="i"><use href="assets/icons.svg#i-settings"/></svg></div>
     </div>
@@ -314,12 +313,16 @@
       <div class="mb-conn"><div class="mb-tile" style="--h:145"><svg class="i"><use href="assets/icons.svg#i-cloud"/></svg></div><div class="mb-ct"><div class="mb-name" data-i18n="mb.names.2">個人雲端</div><div class="mb-st"><svg class="i"><use href="assets/icons.svg#i-circle-check"/></svg><span data-i18n="mb.connected">已連線</span></div></div><div class="mb-folder"><svg class="i"><use href="assets/icons.svg#i-folder-open"/></svg></div><button class="mb-switch" type="button" role="switch" aria-checked="true" data-action="mount"></button></div>
       <div class="mb-conn"><div class="mb-tile" style="--h:45"><svg class="i"><use href="assets/icons.svg#i-database"/></svg></div><div class="mb-ct"><div class="mb-name" data-i18n="mb.names.3">客戶交付</div><div class="mb-st"><svg class="i"><use href="assets/icons.svg#i-circle-check"/></svg><span data-i18n="mb.connected">已連線</span></div></div><div class="mb-folder"><svg class="i"><use href="assets/icons.svg#i-folder-open"/></svg></div><button class="mb-switch" type="button" role="switch" aria-checked="true" data-action="mount"></button></div>
       <div class="mb-cap" data-i18n="mb.transfers">傳輸中</div>
+      <div data-transfers>
       <div class="mb-tr"><svg class="i"><use href="assets/icons.svg#i-arrow-up"/></svg><div class="mb-tr-b"><div class="mb-fn" data-i18n="mb.t0">2026 品牌提案_final_v3.key</div><div class="mb-bar"><i style="width:45%"></i></div><div class="mb-meta" data-i18n="mb.t0meta">家裡的 NAS · 45% · 3.2 MB / 7.1 MB · 1.2 MB/s · 剩 3 秒</div></div></div>
       <div class="mb-tr"><svg class="i"><use href="assets/icons.svg#i-arrow-down"/></svg><div class="mb-tr-b"><div class="mb-fn">IMG_4821.HEIC</div><div class="mb-bar"><i style="width:80%"></i></div><div class="mb-meta" data-i18n="mb.t1meta">個人雲端 · 80% · 2.4 MB / 3.0 MB · 0.9 MB/s · 剩 1 秒</div></div></div>
+      </div>
       <div class="mb-cap" data-i18n="mb.recent">最近完成</div>
+      <div data-recent>
       <div class="mb-done"><svg class="i"><use href="assets/icons.svg#i-circle-check"/></svg><div class="mb-fn" data-i18n="mb.r0">會議記錄 10-01.md</div><div class="when" data-i18n="mb.r0meta">家裡的 NAS · 10:28</div></div>
       <div class="mb-done"><svg class="i"><use href="assets/icons.svg#i-circle-check"/></svg><div class="mb-fn">IMG_4820.HEIC</div><div class="when" data-i18n="mb.r1meta">個人雲端 · 10:25</div></div>
       <div class="mb-done"><svg class="i"><use href="assets/icons.svg#i-circle-check"/></svg><div class="mb-fn" data-i18n="mb.r2">素材包_v2.zip</div><div class="when" data-i18n="mb.r2meta">工作室共用 · 10:12</div></div>
+      </div>
     </div>
     <div class="mb-foot">
       <svg class="i"><use href="assets/icons.svg#i-hard-drive"/></svg>

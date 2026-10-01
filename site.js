@@ -180,10 +180,9 @@ function applyLang(next) {
 }
 
 // ---------- 深淺色 ----------
+// 預設淺色,不跟隨系統;只有按過切換才是深色
 function isDark() {
-  const theme = document.documentElement.dataset.theme;
-  if (theme) return theme === 'dark';
-  return window.matchMedia('(prefers-color-scheme: dark)').matches;
+  return document.documentElement.dataset.theme === 'dark';
 }
 
 function toggleTheme() {
@@ -251,3 +250,314 @@ if (window.ResizeObserver) {
 } else {
   window.addEventListener('resize', fitPanels);
 }
+
+// =====================================================================
+// 動畫:Hero 入場與捲動淡入、Finder 示範「打開才下載」、選單列面板的傳輸進度、狀態格切換面板狀態。
+// 系統開啟「減少動態效果」時不播放(狀態格切換仍可用,只是沒有過場)。
+// =====================================================================
+
+const ANIM_COPY = {
+  zh: {
+    finderStatus: '7 個項目 · 已下載 {n} 個',
+    left: '剩 {s} 秒',
+    failed: '需要處理 · 存取金鑰無效',
+    states: {
+      normal: { title: '4 組連線都正常', sub: '全部已同步' },
+      sync: { title: '同步中 2 個檔案 · 2.1 MB/s', sub: '4 組連線都正常' },
+      alert: { title: '1 組連線需要處理', sub: '「客戶交付」無法登入' },
+      pause: { title: '全部已暫停', sub: 'Finder 中暫時看不到連線' }
+    }
+  },
+  en: {
+    finderStatus: '7 items · {n} downloaded',
+    left: '{s} s left',
+    failed: 'Needs attention · Invalid access key',
+    states: {
+      normal: { title: 'All 4 connections are working', sub: 'Everything is synced' },
+      sync: { title: 'Syncing 2 files · 2.1 MB/s', sub: 'All 4 connections are working' },
+      alert: { title: '1 connection needs attention', sub: 'Can’t sign in to “Client Delivery”' },
+      pause: { title: 'All paused', sub: 'Connections are hidden from Finder' }
+    }
+  }
+};
+
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const fill = (text, values) => text.replace(/\{(\w+)\}/g, (_, k) => values[k]);
+const pick = item => item.name || item[lang];
+const icon = name => `<svg class="i"><use href="assets/icons.svg#i-${name}"/></svg>`;
+
+/** 只在畫面上看得到時執行(省電) */
+function whileVisible(el, onChange) {
+  if (!window.IntersectionObserver) { onChange(true); return; }
+  new IntersectionObserver(([entry]) => onChange(entry.isIntersecting)).observe(el);
+}
+
+// ---------- Hero 入場與捲動淡入 ----------
+function setupReveal() {
+  if (reduceMotion || !window.IntersectionObserver) return;
+  document.documentElement.classList.add('anim');
+  const groups = [
+    ['.hero-text > *', 90, 0],
+    ['.hero-art > *:not(.dark-only):not(.light-only), .hero-art > .shot', 200, 180],
+    ['.head', 0, 0], ['.svc', 90, 0], ['.feature-text', 0, 0], ['.feature-art', 0, 120],
+    ['.panel-sec-text', 0, 0], ['.panel-sec .panel-slot', 0, 150], ['.h2.center', 0, 0],
+    ['.step', 110, 0], ['.step-shots figure', 140, 0], ['.sec', 100, 0], ['.faq-list', 0, 80],
+    ['.cta > *:not(.dark-only)', 80, 0]
+  ];
+  const observer = new IntersectionObserver(entries => {
+    for (const entry of entries) {
+      if (!entry.isIntersecting) continue;
+      entry.target.classList.add('in');
+      observer.unobserve(entry.target);
+    }
+  }, { rootMargin: '0px 0px -8% 0px', threshold: 0.12 });
+  for (const [selector, step, base] of groups) {
+    document.querySelectorAll(selector).forEach((el, i) => {
+      // 同一組裡依序錯開;換列(網格)時重新計算,避免最後一張等太久
+      const index = step ? i % 4 : 0;
+      el.classList.add('reveal');
+      el.style.setProperty('--d', `${base + index * step}ms`);
+      observer.observe(el);
+    });
+  }
+}
+
+// ---------- Finder:示範「打開才下載」 ----------
+const finders = [];
+
+function setupFinders() {
+  document.querySelectorAll('[data-finder]').forEach(frame => {
+    const rows = [...frame.querySelectorAll('.f-row')];
+    const initial = rows.map(row => row.dataset.kind);
+    const finder = { frame, rows, initial, kinds: [...initial], progress: 48, downloaded: 2, wait: 0 };
+    finders.push(finder);
+    renderFinder(finder);
+    if (reduceMotion) return;
+    let timer = null;
+    whileVisible(frame, visible => {
+      clearInterval(timer);
+      if (visible) timer = setInterval(() => stepFinder(finder), 100);
+    });
+  });
+}
+
+function stepFinder(f) {
+  if (f.wait > 0) { f.wait -= 1; return; }
+  const loading = f.kinds.indexOf('loading');
+  if (loading >= 0) {
+    f.progress = Math.min(100, f.progress + 2.2);
+    if (f.progress >= 100) {
+      f.kinds[loading] = 'local';
+      f.downloaded += 1;
+      f.wait = 12;   // 下載完停 1.2 秒,讓人看到雲朵變成已下載
+    }
+  } else {
+    const next = f.kinds.indexOf('cloud');
+    if (next >= 0) {
+      f.kinds[next] = 'loading';
+      f.progress = 0;
+    } else {
+      // 全部下載完:停一下再從頭播放
+      f.kinds = [...f.initial];
+      f.progress = 48;
+      f.downloaded = 2;
+      f.wait = 30;
+    }
+  }
+  renderFinder(f);
+}
+
+function renderFinder(f) {
+  f.rows.forEach((row, i) => {
+    const kind = f.kinds[i];
+    if (row.dataset.kind === kind && kind !== 'loading') return;
+    row.dataset.kind = kind;
+    const state = row.querySelector('.f-state');
+    if (kind === 'loading') {
+      let ring = state.querySelector('.f-ring');
+      if (!ring) { state.innerHTML = '<i class="f-ring"></i>'; ring = state.firstChild; }
+      ring.style.setProperty('--p', f.progress.toFixed(1));
+    } else {
+      state.innerHTML = kind === 'cloud' ? icon('cloud-download') : '';
+    }
+  });
+  const status = f.frame.querySelector('[data-finder-status]');
+  if (status) status.textContent = fill(ANIM_COPY[lang].finderStatus, { n: f.downloaded });
+}
+
+// ---------- 選單列面板:傳輸進度與狀態 ----------
+// 名稱只有一種語言的(照片檔名)用 name;其他用 zh/en。conn 是面板裡連線的索引
+const POOL = [
+  { zh: '客戶簡報_1001.pdf', en: 'Client deck_1001.pdf', conn: 3, dir: 'up', size: 4.6, speed: 1.1 },
+  { zh: '活動花絮.mov', en: 'Event clips.mov', conn: 1, dir: 'down', size: 9.8, speed: 1.4 },
+  { name: 'IMG_4822.HEIC', conn: 2, dir: 'down', size: 2.8, speed: 0.9 },
+  { zh: '季度報表.numbers', en: 'Quarterly report.numbers', conn: 0, dir: 'up', size: 1.9, speed: 0.8 },
+  { zh: '2026 品牌提案_final_v3.key', en: '2026 Brand Pitch_final_v3.key', conn: 0, dir: 'up', size: 7.1, speed: 1.2 },
+  { name: 'IMG_4821.HEIC', conn: 2, dir: 'down', size: 3.0, speed: 0.9 }
+];
+const panels = [];
+
+function setupPanels() {
+  document.querySelectorAll('[data-panel]').forEach((slot, n) => {
+    const panel = {
+      root: slot,
+      state: 'sync',
+      next: n * 2,   // 兩個面板從清單不同位置開始,看起來不會一模一樣
+      transfers: [
+        { ...POOL[4], pct: 45 },
+        { ...POOL[5], pct: 80 }
+      ],
+      recent: [
+        { zh: '會議記錄 10-01.md', en: 'Meeting notes 10-01.md', conn: 0, time: '10:28' },
+        { name: 'IMG_4820.HEIC', conn: 2, time: '10:25' },
+        { zh: '素材包_v2.zip', en: 'Assets_v2.zip', conn: 1, time: '10:12' }
+      ]
+    };
+    panels.push(panel);
+    renderPanel(panel);
+    if (reduceMotion) return;
+    let timer = null;
+    whileVisible(slot, visible => {
+      clearInterval(timer);
+      if (visible) timer = setInterval(() => stepPanel(panel), 1000);
+    });
+  });
+}
+
+function stepPanel(p) {
+  if (p.state === 'pause' || p.state === 'normal') return;   // 這兩種狀態沒有傳輸
+  let changed = false;
+  p.transfers = p.transfers.map(t => {
+    if (t.waiting) {
+      t.waiting -= 1;
+      return t;
+    }
+    const pct = Math.min(100, t.pct + (t.speed / t.size) * 100);
+    if (pct < 100) return { ...t, pct };
+    // 完成:移到「最近完成」,稍後換下一個檔案
+    const now = new Date();
+    p.recent = [{ ...t, time: `${now.getHours()}:${String(now.getMinutes()).padStart(2, '0')}`, fresh: true }, ...p.recent].slice(0, 3);
+    changed = true;
+    const next = POOL[p.next++ % POOL.length];
+    return { ...next, pct: 0, waiting: 1, fresh: true };
+  });
+  renderPanel(p, changed);
+}
+
+function connName(index) { return COPY[lang].mb.names[index]; }
+
+function formatMeta(t) {
+  const done = (t.size * t.pct / 100).toFixed(1);
+  const left = Math.max(1, Math.ceil((t.size * (100 - t.pct) / 100) / t.speed));
+  return [connName(t.conn), `${Math.round(t.pct)}%`, `${done} MB / ${t.size.toFixed(1)} MB`, `${t.speed.toFixed(1)} MB/s`,
+          fill(ANIM_COPY[lang].left, { s: left })].join(' · ');
+}
+
+function renderPanel(p, listChanged = true) {
+  const root = p.root;
+  // 標題列
+  const head = ANIM_COPY[lang].states[p.state];
+  const dot = root.querySelector('[data-head-dot]');
+  if (dot) {
+    const symbol = { normal: 'circle-check', sync: 'arrow-up-down', alert: 'circle-alert', pause: 'circle-pause' }[p.state];
+    dot.className = `mb-dot ${p.state === 'alert' || p.state === 'pause' ? p.state : ''}`;
+    dot.innerHTML = icon(symbol);
+  }
+  root.querySelector('[data-head-title]').textContent = head.title;
+  root.querySelector('[data-head-sub]').textContent = head.sub;
+  // 連線列:暫停時全部關掉,需要處理時「客戶交付」變紅
+  root.querySelectorAll('.mb-conn').forEach((row, i) => {
+    const failed = p.state === 'alert' && i === 3;
+    row.classList.toggle('failed', failed);
+    const sw = row.querySelector('.mb-switch');
+    if (p.state === 'pause') sw.setAttribute('aria-checked', 'false');
+    else if (p.state !== 'pause' && sw.dataset.userOff !== '1') sw.setAttribute('aria-checked', 'true');
+    updateMountLabel(row);
+    if (failed) {
+      row.querySelector('.mb-st span').textContent = ANIM_COPY[lang].failed;
+      row.querySelector('.mb-st svg use').setAttribute('href', 'assets/icons.svg#i-circle-alert');
+    } else {
+      row.querySelector('.mb-st svg use').setAttribute('href', 'assets/icons.svg#i-circle-check');
+    }
+  });
+  // 傳輸中(一般、暫停時沒有傳輸)
+  const transfers = root.querySelector('[data-transfers]');
+  const hasTransfers = p.state === 'sync' || p.state === 'alert';
+  transfers.previousElementSibling.hidden = !hasTransfers;
+  transfers.hidden = !hasTransfers;
+  if (listChanged || transfers.children.length !== p.transfers.length) {
+    transfers.innerHTML = p.transfers.map(t => `
+      <div class="mb-tr${t.fresh ? ' enter' : ''}">${icon(t.dir === 'up' ? 'arrow-up' : 'arrow-down')}<div class="mb-tr-b">
+        <div class="mb-fn"></div><div class="mb-bar"><i></i></div><div class="mb-meta"></div></div></div>`).join('');
+    p.transfers.forEach(t => { t.fresh = false; });
+  }
+  [...transfers.children].forEach((row, i) => {
+    const t = p.transfers[i];
+    row.querySelector('.mb-fn').textContent = pick(t);
+    row.querySelector('.mb-bar i').style.width = `${t.pct}%`;
+    row.querySelector('.mb-meta').textContent = t.waiting ? connName(t.conn) : formatMeta(t);
+  });
+  // 最近完成
+  if (listChanged) {
+    root.querySelector('[data-recent]').innerHTML = p.recent.map(r => `
+      <div class="mb-done${r.fresh ? ' enter' : ''}">${icon('circle-check')}<div class="mb-fn"></div><div class="when"></div></div>`).join('');
+    p.recent.forEach(r => { r.fresh = false; });
+  }
+  root.querySelectorAll('[data-recent] .mb-done').forEach((row, i) => {
+    const r = p.recent[i];
+    row.querySelector('.mb-fn').textContent = pick(r);
+    row.querySelector('.when').textContent = `${connName(r.conn)} · ${r.time}`;
+  });
+}
+
+// ---------- 狀態格:滑過(或點一下)時,同一區的面板切換成那個狀態 ----------
+function setupStates() {
+  document.querySelectorAll('.panel-sec').forEach(section => {
+    const panel = panels.find(p => section.contains(p.root));
+    if (!panel) return;
+    const cells = [...section.querySelectorAll('.state')];
+    // 「一般」「已暫停」沒有傳輸區,面板會變矮;區塊是垂直置中,左邊的狀態格會跟著移動,
+    // 滑鼠因此離開而跳回「同步中」→ 閃爍。所以面板區固定用「同步中」時的高度
+    const slot = panel.root.closest('.panel-slot');
+    const lockHeight = () => {
+      if (panel.state !== 'sync') return;
+      slot.style.minHeight = '';
+      slot.style.minHeight = `${slot.offsetHeight}px`;
+    };
+    lockHeight();
+    window.addEventListener('resize', lockHeight);
+    const show = state => {
+      panel.state = state;
+      cells.forEach(cell => cell.classList.toggle('active', cell.dataset.state === state));
+      renderPanel(panel);
+    };
+    cells.forEach(cell => {
+      cell.addEventListener('mouseenter', () => show(cell.dataset.state));
+      cell.addEventListener('focus', () => show(cell.dataset.state));
+      cell.addEventListener('click', () => show(cell.dataset.state));
+    });
+    section.querySelector('.states').addEventListener('mouseleave', () => show('sync'));
+    cells[0].closest('.states').addEventListener('focusout', event => {
+      if (!event.currentTarget.contains(event.relatedTarget)) show('sync');
+    });
+  });
+}
+
+// 使用者手動關掉的開關,狀態切換時要記得維持關閉
+document.addEventListener('click', event => {
+  const sw = event.target.closest('.mb-switch');
+  if (sw) sw.dataset.userOff = sw.getAttribute('aria-checked') === 'false' ? '1' : '';
+});
+
+setupReveal();
+setupFinders();
+setupPanels();
+setupStates();
+
+// 切換語言時,動態內容也要重畫
+const baseApplyLang = applyLang;
+applyLang = next => {
+  baseApplyLang(next);
+  finders.forEach(renderFinder);
+  panels.forEach(p => renderPanel(p));
+};

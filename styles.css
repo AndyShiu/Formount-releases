@@ -1,5 +1,5 @@
 /* Formount 官網。設計:docs/claude-design/website/handoff/README.md(數值以那裡為準)
-   深淺色:跟隨系統,或以 <html data-theme="light|dark"> 手動指定(site.js) */
+   深淺色:預設淺色;訪客按切換後以 <html data-theme="dark"> 套用深色並記住(site.js) */
 
 :root {
   --bg: #FBFCFA; --bg2: #F2F5F0; --card: #FFFFFF;
@@ -13,25 +13,11 @@
   --mFg: #1d1d1f; --mFg2: rgba(60,60,67,0.72); --mFg3: rgba(60,60,67,0.45);
   --mFill: rgba(0,0,0,0.05); --mFillStrong: rgba(0,0,0,0.1); --mAccent: #44704F;
   --mGreen: #1f9e45; --mGreenSoft: rgba(40,167,69,0.13); --mBorder: rgba(0,0,0,0.12);
+  --mRed: #e0362c; --mRedSoft: rgba(224,54,44,0.1); --mGray: #8e8e93;
   color-scheme: light;
 }
 
-/* 深色:兩組選擇器內容相同(跟隨系統、手動指定) */
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #111311; --bg2: #171A17; --card: #1D211E;
-    --ink: #EEF1EE; --ink2: #B3BAB4; --ink3: #8A928C;
-    --line: rgba(255,255,255,0.09);
-    --ac: #5B8F66; --acSoft: #223127; --acText: #8BBE95;
-    --shadow: 0 30px 60px -24px rgba(0,0,0,0.7);
-    --fwin: #1E201F; --fside: #2A2D2B; --fsel: rgba(255,255,255,0.11); --falt: rgba(255,255,255,0.035); --fline: rgba(255,255,255,0.08);
-    --mPanel: rgba(38,38,41,0.92); --mCard: #3a3a3d; --mLine: rgba(255,255,255,0.08);
-    --mFg: #f5f5f7; --mFg2: rgba(235,235,245,0.62); --mFg3: rgba(235,235,245,0.38);
-    --mFill: rgba(255,255,255,0.08); --mFillStrong: rgba(255,255,255,0.15); --mAccent: #5B8F66;
-    --mGreen: #32d74b; --mGreenSoft: rgba(50,215,75,0.16); --mBorder: rgba(255,255,255,0.12);
-    color-scheme: dark;
-  }
-}
+/* 深色:只有訪客按切換按鈕才套用(預設淺色,不跟隨系統) */
 :root[data-theme="dark"] {
   --bg: #111311; --bg2: #171A17; --card: #1D211E;
   --ink: #EEF1EE; --ink2: #B3BAB4; --ink3: #8A928C;
@@ -43,15 +29,12 @@
   --mFg: #f5f5f7; --mFg2: rgba(235,235,245,0.62); --mFg3: rgba(235,235,245,0.38);
   --mFill: rgba(255,255,255,0.08); --mFillStrong: rgba(255,255,255,0.15); --mAccent: #5B8F66;
   --mGreen: #32d74b; --mGreenSoft: rgba(50,215,75,0.16); --mBorder: rgba(255,255,255,0.12);
+  --mRed: #ff453a; --mRedSoft: rgba(255,69,58,0.16); --mGray: #98989d;
   color-scheme: dark;
 }
 
 /* 依深淺色顯示對應的圖(截圖、App 圖示、切換按鈕)。隱藏的 lazy 圖片不會被下載 */
 .dark-only { display: none !important; }
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .dark-only { display: block !important; }
-  :root:not([data-theme="light"]) .light-only { display: none !important; }
-}
 :root[data-theme="dark"] .dark-only { display: block !important; }
 :root[data-theme="dark"] .light-only { display: none !important; }
 
@@ -210,7 +193,7 @@ svg.i { width: 1em; height: 1em; flex: none; fill: none; stroke: currentColor; s
 .f-file::after { content: ""; width: 100%; height: 0.32em; background: var(--c); }
 .f-state { display: flex; align-items: center; justify-content: center; color: var(--ink3); }
 .f-state svg.i { width: 1.15em; height: 1.15em; }
-.f-ring { width: 1em; height: 1em; border-radius: 50%; background: conic-gradient(var(--ac) 0 48%, var(--fline) 48% 100%);
+.f-ring { width: 1em; height: 1em; border-radius: 50%; background: conic-gradient(var(--ac) 0 calc(var(--p, 48) * 1%), var(--fline) 0 100%);
   display: flex; align-items: center; justify-content: center; }
 .f-ring::after { content: ""; width: 0.6em; height: 0.6em; border-radius: 50%; background: var(--fwin); }
 .f-meta { color: var(--ink2); }
@@ -278,7 +261,7 @@ svg.i { width: 1em; height: 1em; flex: none; fill: none; stroke: currentColor; s
   border: 1px solid var(--line); font-size: 14.5px; font-weight: 500; }
 .state i { width: 20px; height: 20px; flex: none; background: var(--ink);
   -webkit-mask: var(--m) center / contain no-repeat; mask: var(--m) center / contain no-repeat; }
-.panel-sec .panel-slot { flex: 0 1 360px; min-width: 0; }
+.panel-sec .panel-slot { flex: 0 1 360px; min-width: 0; align-self: center; }
 
 /* ---------- 三步驟 ---------- */
 .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: clamp(20px, 3vw, 40px);
@@ -339,3 +322,22 @@ svg.i { width: 1em; height: 1em; flex: none; fill: none; stroke: currentColor; s
 .pv-sections { display: flex; flex-direction: column; gap: 32px; margin-top: 44px; }
 .pv-sections h2 { font-size: 20px; font-weight: 650; line-height: 1.35; }
 .pv-sections p { font-size: 16px; line-height: 1.75; color: var(--ink2); margin-top: 10px; text-wrap: pretty; }
+
+/* ---------- 面板狀態(狀態格滑過時切換) ---------- */
+.mb-dot.alert { background: var(--mRedSoft); color: var(--mRed); }
+.mb-dot.pause { background: var(--mFill); color: var(--mGray); }
+.mb-conn.failed .mb-st svg.i { color: var(--mRed); }
+.mb-conn.failed .mb-st { color: var(--mRed); }
+.state { cursor: default; transition: border-color .2s, background-color .2s; outline: none; }
+.state:hover, .state:focus-visible, .state.active { border-color: color-mix(in srgb, var(--acText) 55%, transparent); background: var(--acSoft); }
+
+/* ---------- 動畫(site.js 在沒有「減少動態效果」時才加上 html.anim) ---------- */
+.anim .reveal { opacity: 0; transform: translateY(18px);
+  transition: opacity .7s ease, transform .8s cubic-bezier(.2, .7, .2, 1); transition-delay: var(--d, 0ms); }
+.anim .reveal.in { opacity: 1; transform: none; }
+.anim .hero-art .reveal { transform: translateY(26px) scale(.985); }
+.anim .hero-art .reveal.in { transform: none; }
+.mb-tr, .mb-done { animation: none; }
+.anim .mb-tr.enter, .anim .mb-done.enter { animation: mb-enter .45s ease both; }
+@keyframes mb-enter { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
+.anim .mb-bar i { transition: width .9s linear; }
