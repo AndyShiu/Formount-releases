@@ -10,13 +10,13 @@
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" href="assets/appicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<link rel="stylesheet" href="styles.css?v=1790840745">
+<link rel="stylesheet" href="styles.css?v=1790843751">
 <script>
   try {
     var t = localStorage.getItem('formount-theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
   } catch (e) {}
 </script>
-<script src="site.js?v=1790840745" defer></script>
+<script src="site.js?v=1790843751" defer></script>
 </head>
 <body data-page="privacy">
 
@@ -48,13 +48,16 @@
     <a class="back" href="./"><svg class="i"><use href="assets/icons.svg#i-chevron-left"/></svg><span data-i18n="pv.back">回到首頁</span></a>
     <h1 data-i18n="pv.title">隱私權政策</h1>
     <div class="updated" data-i18n="pv.updated">最後更新:2026 年 10 月 1 日</div>
-    <div class="summary" data-i18n="pv.summary">Formount 不收集、不上傳任何個人資料或檔案內容,也沒有帳號系統。</div>
+    <div class="summary" data-i18n="pv.summary">Formount 不收集、不上傳任何個人資料或檔案內容。你的檔案與登入資料只存在你的 Mac 和你自己的儲存空間之間。</div>
     <div class="pv-sections">
-      <section><h2 data-i18n="pv.sections.0.h">我們收集的資料</h2><p data-i18n="pv.sections.0.b">Formount 不收集、不上傳任何個人資料或檔案內容;沒有帳號系統。</p></section>
-      <section><h2 data-i18n="pv.sections.1.h">登入資料的儲存</h2><p data-i18n="pv.sections.1.b">儲存空間的登入資料(密碼、存取金鑰、OAuth token)只存在你 Mac 上的加密設定檔與鑰匙圈。</p></section>
-      <section><h2 data-i18n="pv.sections.2.h">與儲存服務的連線</h2><p data-i18n="pv.sections.2.b">Formount 直接連到你自己設定的儲存服務。使用 Google 雲端硬碟、OneDrive、Dropbox 時,只用來列出、讀取、寫入你在 Finder 中操作的檔案。</p></section>
-      <section><h2 data-i18n="pv.sections.3.h">Google API 服務使用者資料政策</h2><p data-i18n="pv.sections.3.b">Formount 對 Google 使用者資料的使用與轉移,遵守 Google API Services User Data Policy,包括「有限使用」(Limited Use)的規定。</p></section>
-      <section><h2 data-i18n="pv.sections.4.h">檢查更新</h2><p data-i18n="pv.sections.4.b">檢查更新時會連到 GitHub 下載更新資訊,只包含 App 版本,不含個人資料。</p></section>
+      <section><h2 data-i18n="pv.sections.0.h">概要</h2><p data-i18n="pv.sections.0.b">Formount 是在你的 Mac 上執行的 App,把你自己的 NAS、伺服器和雲端硬碟掛載到 Finder。Formount 沒有伺服器、沒有帳號系統,也不收集、不上傳任何個人資料或檔案內容。</p></section>
+      <section><h2 data-i18n="pv.sections.1.h">Formount 存取的資料</h2><p data-i18n="pv.sections.1.b">你新增連線後,Formount 會存取那個儲存空間裡的檔案與資料夾:名稱、大小、修改時間等資訊,以及你在 Finder 中打開或儲存的檔案內容。使用 Google 雲端硬碟時,Formount 透過 Google Drive API 存取你雲端硬碟中的檔案與資料夾(範圍:https://www.googleapis.com/auth/drive)。</p></section>
+      <section><h2 data-i18n="pv.sections.2.h">資料的用途</h2><p data-i18n="pv.sections.2.b">這些資料只用來在 Finder 中顯示你的檔案,並在你打開、儲存、新增、重新命名、移動或刪除檔案時,與你的儲存空間同步。Formount 不會把資料用於廣告、分析、建立使用者輪廓、訓練 AI 模型,或任何與上述功能無關的用途。</p></section>
+      <section><h2 data-i18n="pv.sections.3.h">資料的儲存</h2><p data-i18n="pv.sections.3.b">登入資料(密碼、存取金鑰、OAuth token)只存在你 Mac 上的加密設定檔與 macOS 鑰匙圈。打開過的檔案會在你的 Mac 上保留一份本機複本,方便下次快速開啟;一段時間沒用的複本會依你的設定自動清除。這些資料都不會離開你的 Mac,除非是直接傳送給你自己設定的儲存服務。</p></section>
+      <section><h2 data-i18n="pv.sections.4.h">資料的分享與傳輸</h2><p data-i18n="pv.sections.4.b">Formount 直接透過加密連線(HTTPS 或你設定的協定)連到你自己的儲存服務,檔案不經過 Formount 或任何第三方的伺服器。我們不會出售、出租、分享或轉移你的資料給任何人,也沒有任何人(包括開發者)能讀取你的資料。</p></section>
+      <section><h2 data-i18n="pv.sections.5.h">刪除資料與撤銷存取</h2><p data-i18n="pv.sections.5.b">在 Formount 中刪除一組連線,會一併移除這台 Mac 上該連線的登入資料與本機複本;遠端的檔案不受影響。使用 Google 帳號登入的連線,也可以隨時到 Google 帳戶的「第三方應用程式與服務」(https://myaccount.google.com/permissions)撤銷 Formount 的存取權。</p></section>
+      <section><h2 data-i18n="pv.sections.6.h">Google API 服務使用者資料政策</h2><p data-i18n="pv.sections.6.b">Formount 對 Google 使用者資料的使用與轉移,遵守 Google API Services User Data Policy,包括「有限使用」(Limited Use)的規定。</p></section>
+      <section><h2 data-i18n="pv.sections.7.h">檢查更新</h2><p data-i18n="pv.sections.7.b">檢查更新時會連到 GitHub 下載更新資訊,只包含 App 版本,不含個人資料。</p></section>
       <section>
         <h2 data-i18n="pv.contactH">聯絡方式</h2>
         <p><span data-i18n="pv.contactB">對這份政策有任何問題,請到 GitHub 開議題:</span> <a href="https://github.com/AndyShiu/Formount-releases/issues" data-i18n="pv.contactLink">Formount 議題回報</a></p>

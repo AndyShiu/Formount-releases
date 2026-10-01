@@ -58,13 +58,16 @@ const COPY = {
     },
     pv: {
       back: '回到首頁', title: '隱私權政策', updated: '最後更新:2026 年 10 月 1 日',
-      summary: 'Formount 不收集、不上傳任何個人資料或檔案內容,也沒有帳號系統。',
+      summary: 'Formount 不收集、不上傳任何個人資料或檔案內容。你的檔案與登入資料只存在你的 Mac 和你自己的儲存空間之間。',
       sections: [
-        { h: '我們收集的資料', b: 'Formount 不收集、不上傳任何個人資料或檔案內容;沒有帳號系統。' },
-        { h: '登入資料的儲存', b: '儲存空間的登入資料(密碼、存取金鑰、OAuth token)只存在你 Mac 上的加密設定檔與鑰匙圈。' },
-        { h: '與儲存服務的連線', b: 'Formount 直接連到你自己設定的儲存服務。使用 Google 雲端硬碟、OneDrive、Dropbox 時,只用來列出、讀取、寫入你在 Finder 中操作的檔案。' },
-        { h: 'Google API 服務使用者資料政策', b: 'Formount 對 Google 使用者資料的使用與轉移,遵守 Google API Services User Data Policy,包括「有限使用」(Limited Use)的規定。' },
-        { h: '檢查更新', b: '檢查更新時會連到 GitHub 下載更新資訊,只包含 App 版本,不含個人資料。' }
+        { h: '概要', b: "Formount 是在你的 Mac 上執行的 App,把你自己的 NAS、伺服器和雲端硬碟掛載到 Finder。Formount 沒有伺服器、沒有帳號系統,也不收集、不上傳任何個人資料或檔案內容。" },
+        { h: 'Formount 存取的資料', b: "你新增連線後,Formount 會存取那個儲存空間裡的檔案與資料夾:名稱、大小、修改時間等資訊,以及你在 Finder 中打開或儲存的檔案內容。使用 Google 雲端硬碟時,Formount 透過 Google Drive API 存取你雲端硬碟中的檔案與資料夾(範圍:https://www.googleapis.com/auth/drive)。" },
+        { h: '資料的用途', b: "這些資料只用來在 Finder 中顯示你的檔案,並在你打開、儲存、新增、重新命名、移動或刪除檔案時,與你的儲存空間同步。Formount 不會把資料用於廣告、分析、建立使用者輪廓、訓練 AI 模型,或任何與上述功能無關的用途。" },
+        { h: '資料的儲存', b: "登入資料(密碼、存取金鑰、OAuth token)只存在你 Mac 上的加密設定檔與 macOS 鑰匙圈。打開過的檔案會在你的 Mac 上保留一份本機複本,方便下次快速開啟;一段時間沒用的複本會依你的設定自動清除。這些資料都不會離開你的 Mac,除非是直接傳送給你自己設定的儲存服務。" },
+        { h: '資料的分享與傳輸', b: "Formount 直接透過加密連線(HTTPS 或你設定的協定)連到你自己的儲存服務,檔案不經過 Formount 或任何第三方的伺服器。我們不會出售、出租、分享或轉移你的資料給任何人,也沒有任何人(包括開發者)能讀取你的資料。" },
+        { h: '刪除資料與撤銷存取', b: "在 Formount 中刪除一組連線,會一併移除這台 Mac 上該連線的登入資料與本機複本;遠端的檔案不受影響。使用 Google 帳號登入的連線,也可以隨時到 Google 帳戶的「第三方應用程式與服務」(https://myaccount.google.com/permissions)撤銷 Formount 的存取權。" },
+        { h: 'Google API 服務使用者資料政策', b: "Formount 對 Google 使用者資料的使用與轉移,遵守 Google API Services User Data Policy,包括「有限使用」(Limited Use)的規定。" },
+        { h: '檢查更新', b: "檢查更新時會連到 GitHub 下載更新資訊,只包含 App 版本,不含個人資料。" }
       ],
       contactH: '聯絡方式', contactB: '對這份政策有任何問題,請到 GitHub 開議題:', contactLink: 'Formount 議題回報'
     }
@@ -124,14 +127,17 @@ const COPY = {
     },
     pv: {
       back: 'Back to home', title: 'Privacy Policy', updated: 'Last updated: October 1, 2026',
-      summary: 'Formount does not collect or upload any personal data or file contents, and has no account system.',
+      summary: 'Formount does not collect or upload any personal data or file contents. Your files and credentials stay between your Mac and your own storage.',
       sections: [
-        { h: 'Data we collect', b: 'Formount does not collect or upload any personal data or file contents. There is no account system.' },
-        { h: 'How credentials are stored', b: 'Storage credentials (passwords, access keys, OAuth tokens) are kept only in an encrypted configuration file and the Keychain on your Mac.' },
-        { h: 'Connecting to storage services', b: 'Formount connects directly to the storage services you set up. For Google Drive, OneDrive and Dropbox, access is used only to list, read and write the files you work with in Finder.' },
+        { h: 'Overview', b: "Formount is an app that runs on your Mac and mounts your own NAS, servers and cloud drives in Finder. Formount has no servers and no account system, and does not collect or upload any personal data or file contents." },
+        { h: 'Data Formount accesses', b: "When you add a connection, Formount accesses the files and folders in that storage: their names, sizes, modification dates and other metadata, and the contents of files you open or save in Finder. For Google Drive, Formount uses the Google Drive API to access the files and folders in your Drive (scope: https://www.googleapis.com/auth/drive)." },
+        { h: 'How the data is used', b: "This data is used only to show your files in Finder and to keep them in sync with your storage when you open, save, create, rename, move or delete files. Formount does not use the data for advertising, analytics, profiling, training AI models, or anything unrelated to this functionality." },
+        { h: 'How data is stored', b: "Credentials (passwords, access keys, OAuth tokens) are kept only in an encrypted configuration file and the macOS Keychain on your Mac. Files you open are kept as a local copy on your Mac so they open quickly next time; copies you haven't used for a while are removed automatically according to your settings. None of this data leaves your Mac except when it is sent directly to the storage service you set up." },
+        { h: 'Sharing and transfer', b: "Formount connects directly to your own storage service over encrypted connections (HTTPS or the protocol you configure). Your files never pass through servers operated by Formount or any third party. We do not sell, rent, share or transfer your data to anyone, and no one, including the developer, can read your data." },
+        { h: 'Deleting data and revoking access', b: "Deleting a connection in Formount removes that connection's credentials and local copies from your Mac; files on the server are not affected. For connections that use your Google account, you can also revoke Formount's access at any time under Third-party apps & services in your Google Account (https://myaccount.google.com/permissions)." },
         // OAuth 審核要求逐字保留這段英文
-        { h: 'Google API Services User Data Policy', b: 'Formount’s use and transfer of information received from Google APIs will adhere to the Google API Services User Data Policy, including the Limited Use requirements.' },
-        { h: 'Update checks', b: 'When checking for updates, Formount downloads update information from GitHub. This contains only the app version and no personal data.' }
+        { h: 'Google API Services User Data Policy', b: "Formount’s use and transfer of information received from Google APIs will adhere to the Google API Services User Data Policy, including the Limited Use requirements." },
+        { h: 'Update checks', b: "When checking for updates, Formount downloads update information from GitHub. This contains only the app version and no personal data." }
       ],
       contactH: 'Contact', contactB: 'Questions about this policy? Open an issue on GitHub:', contactLink: 'Formount issues'
     }
