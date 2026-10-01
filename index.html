@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Formount — 把 NAS、伺服器和雲端硬碟放進 Finder</title>
+<meta name="description" content="Formount 是免費的 macOS App,把 NAS、伺服器和雲端硬碟掛載到 Finder。支援 WebDAV、SMB、SFTP、FTP、S3、Google 雲端硬碟、OneDrive、Dropbox。">
+<link rel="canonical" href="https://formount.andyshiu.com/">
+<meta name="theme-color" content="#FBFCFA" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#111311" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://formount.andyshiu.com/">
+<meta property="og:title" content="Formount — 把 NAS、伺服器和雲端硬碟放進 Finder">
+<meta property="og:description" content="免費的 macOS App:遠端的檔案出現在 Finder 側邊欄,用起來和本機資料夾一樣。">
+<meta property="og:image" content="https://formount.andyshiu.com/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" href="assets/appicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="stylesheet" href="styles.css?v=1790839336">
+<!-- 在畫面出現前套用手動選的深淺色與語言,避免閃一下 -->
+<script>
+  try {
+    var t = localStorage.getItem('formount-theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
+  } catch (e) {}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Formount",
+  "operatingSystem": "macOS 15 or later",
+  "applicationCategory": "UtilitiesApplication",
+  "softwareVersion": "0.1.0",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "downloadUrl": "https://github.com/AndyShiu/Formount-releases/releases/latest/download/Formount.dmg",
+  "author": { "@type": "Person", "name": "AndyShiu" },
+  "url": "https://formount.andyshiu.com/"
+}
+</script>
+<script src="site.js?v=1790839336" defer></script>
+</head>
+<body>
+
+<header class="nav pad">
+  <div class="wrap nav-in">
+    <a class="brand" href="./">
+      <img class="light-only" src="assets/appicon.svg" alt=""><img class="dark-only" src="assets/appicon-dark.svg" alt="">
+      <span>Formount</span>
+    </a>
+    <nav class="nav-links desktop-only">
+      <a href="#features" data-i18n="navFeatures">功能</a>
+      <a href="#services" data-i18n="navServices">支援服務</a>
+      <a href="#faq" data-i18n="navFaq">常見問題</a>
+      <a href="privacy.html" data-i18n="navPrivacy">隱私權</a>
+    </nav>
+    <div class="nav-tools">
+      <button class="tool" type="button" data-action="lang" data-i18n="langLabel">EN</button>
+      <button class="tool square" type="button" data-action="theme" data-i18n-aria="themeLabel" aria-label="切換深淺色">
+        <svg class="i light-only"><use href="assets/icons.svg#i-moon"/></svg>
+        <svg class="i dark-only"><use href="assets/icons.svg#i-sun"/></svg>
+      </button>
+      <a class="nav-dl desktop-only" href="https://github.com/AndyShiu/Formount-releases/releases/latest/download/Formount.dmg" data-i18n="navDownload">下載</a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- Hero(方向 1b:左文右圖) -->
+<section class="hero pad">
+  <div class="hero-in">
+    <div class="hero-text">
+      <img class="hero-icon light-only" src="assets/appicon.svg" alt="Formount"><img class="hero-icon dark-only" src="assets/appicon-dark.svg" alt="Formount">
+      <h1 data-i18n="heroTitle">把 NAS、伺服器和雲端硬碟放進 Finder。</h1>
+      <p class="lead" data-i18n="heroSub">裝好之後,遠端的檔案就出現在 Finder 側邊欄,用起來和本機資料夾一樣。不用開網頁、不用另外的同步程式,也不用把整個雲端硬碟下載到電腦裡。</p>
+      <div data-download></div>
+    </div>
+    <div class="hero-art" aria-hidden="true">
+      <div class="finder-frame" data-finder></div>
+      <img class="shot light-only" src="assets/shots/light-overview.webp" alt="" width="1600" height="1242">
+      <img class="shot dark-only" src="assets/shots/dark-overview.webp" alt="" width="1600" height="1242" loading="lazy">
+      <div class="panel-slot"><div class="panel-scale" data-panel></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 支援的服務 -->
+<section id="services" class="section alt pad">
+  <div class="wrap">
+    <div class="head">
+      <div class="eyebrow" data-i18n="svcEyebrow">支援的服務</div>
+      <h2 class="h2" data-i18n="svcTitle">一個 App,連上所有空間</h2>
+      <p class="lead" data-i18n="svcSub">可以同時設定很多組連線,各自獨立暫停、恢復。雲端硬碟是在瀏覽器登入,Formount 不會看到你的密碼。</p>
+    </div>
+    <div class="svc-grid">
+      <div class="card svc">
+        <div class="svc-group" data-i18n="gNas">NAS 與伺服器</div>
+        <div class="svc-row"><div class="tile" style="--h:255"><svg class="i"><use href="assets/icons.svg#i-server"/></svg></div><div><div class="svc-name">WebDAV</div><div class="svc-desc" data-i18n="dWebdav">Synology、QNAP、Nextcloud 等 NAS</div></div></div>
+        <div class="svc-row"><div class="tile" style="--h:195"><svg class="i"><use href="assets/icons.svg#i-network"/></svg></div><div><div class="svc-name" data-i18n="nSmb">SMB(網路芳鄰)</div><div class="svc-desc" data-i18n="dSmb">區域網路內的 Windows 或 NAS 分享資料夾</div></div></div>
+        <div class="svc-row"><div class="tile" style="--h:300"><svg class="i"><use href="assets/icons.svg#i-square-terminal"/></svg></div><div><div class="svc-name">SFTP</div><div class="svc-desc" data-i18n="dSftp">透過 SSH 連到 Linux 或 macOS 伺服器</div></div></div>
+        <div class="svc-row"><div class="tile" style="--h:340"><svg class="i"><use href="assets/icons.svg#i-arrow-up-down"/></svg></div><div><div class="svc-name">FTP / FTPS</div><div class="svc-desc" data-i18n="dFtp">網站主機與較舊的設備</div></div></div>
+      </div>
+      <div class="card svc">
+        <div class="svc-group" data-i18n="gCloud">雲端硬碟</div>
+        <div class="svc-row"><div class="tile" style="--h:145"><svg class="i"><use href="assets/icons.svg#i-cloud"/></svg></div><div><div class="svc-name" data-i18n="nGdrive">Google 雲端硬碟</div><div class="svc-desc" data-i18n="dGdrive">用 Google 帳號在瀏覽器登入</div></div></div>
+        <div class="svc-row"><div class="tile" style="--h:225"><svg class="i"><use href="assets/icons.svg#i-cloudy"/></svg></div><div><div class="svc-name">OneDrive</div><div class="svc-desc" data-i18n="dOnedrive">用 Microsoft 帳號在瀏覽器登入</div></div></div>
+        <div class="svc-row"><div class="tile" style="--h:275"><svg class="i"><use href="assets/icons.svg#i-box"/></svg></div><div><div class="svc-name">Dropbox</div><div class="svc-desc" data-i18n="dDropbox">用 Dropbox 帳號在瀏覽器登入</div></div></div>
+      </div>
+      <div class="card svc">
+        <div class="svc-group" data-i18n="gObj">物件儲存</div>
+        <div class="svc-row"><div class="tile" style="--h:45"><svg class="i"><use href="assets/icons.svg#i-database"/></svg></div><div><div class="svc-name" data-i18n="nS3">S3 相容儲存</div><div class="svc-desc" data-i18n="dS3">AWS S3、Cloudflare R2、Wasabi、MinIO</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 核心賣點 -->
+<section id="features" class="section pad">
+  <div class="wrap features">
+    <div class="feature">
+      <div class="feature-text">
+        <h3 class="h3" data-i18n="f1Title">就在 Finder 裡</h3>
+        <p data-i18n="f1Body">連線會出現在 Finder 側邊欄的「位置」下方,名稱是「Formount - 你取的名字」。打開、拖放、存檔、用 Photoshop 或 Final Cut 直接編輯,全都和本機資料夾一樣。不用學新介面。</p>
+      </div>
+      <div class="feature-art"><div class="finder-frame" data-finder aria-hidden="true"></div></div>
+    </div>
+    <div class="feature reverse">
+      <div class="feature-text">
+        <h3 class="h3" data-i18n="f3Title">不佔硬碟空間</h3>
+        <p data-i18n="f3Body">檔案打開時才下載,Finder 裡看得到全部檔案,但電腦只存你用過的。一段時間沒用的檔案會自動清掉(預設 7 天、總量 10 GB,都可以調整),檔案仍然留在 Finder,下次打開時再下載。</p>
+      </div>
+      <div class="feature-art">
+        <img class="light-only" src="assets/shots/light-cache.webp" alt="" width="1600" height="1242" loading="lazy">
+        <img class="dark-only" src="assets/shots/dark-cache.webp" alt="" width="1600" height="1242" loading="lazy">
+      </div>
+    </div>
+    <div class="feature">
+      <div class="feature-text">
+        <h3 class="h3" data-i18n="f4Title">斷線也不怕</h3>
+        <ul class="checks">
+          <li><svg class="i"><use href="assets/icons.svg#i-check"/></svg><span data-i18n="f4List.0">網路中斷時不會卡住 Finder,恢復後自動重新連線</span></li>
+          <li><svg class="i"><use href="assets/icons.svg#i-check"/></svg><span data-i18n="f4List.1">開機後在背景自動掛載所有連線</span></li>
+          <li><svg class="i"><use href="assets/icons.svg#i-check"/></svg><span data-i18n="f4List.2">別人在遠端新增、修改、刪除的檔案,幾十秒內就會出現在 Finder</span></li>
+          <li><svg class="i"><use href="assets/icons.svg#i-check"/></svg><span data-i18n="f4List.3">兩邊同時改到同一個檔案時,兩份都保留,不會互相覆蓋</span></li>
+        </ul>
+      </div>
+      <div class="feature-art">
+        <img class="light-only" src="assets/shots/light-conn0.webp" alt="" width="1600" height="1242" loading="lazy">
+        <img class="dark-only" src="assets/shots/dark-conn0.webp" alt="" width="1600" height="1242" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 選單列面板 -->
+<section class="section alt pad">
+  <div class="wrap panel-sec">
+    <div class="panel-sec-text">
+      <h2 class="h2" data-i18n="panelTitle">隨時知道狀況</h2>
+      <p class="lead" data-i18n="panelBody">選單列圖示會顯示目前狀態。點開可以看到每組連線的狀態、正在傳輸的檔案和進度、最近的衝突。斷線或登入過期時會用通知告訴你。</p>
+      <div class="states">
+        <div class="state"><i style="--m:url(assets/menubar-normal.svg)"></i><span data-i18n="st0">一般</span></div>
+        <div class="state"><i style="--m:url(assets/menubar-sync.svg)"></i><span data-i18n="st1">同步中</span></div>
+        <div class="state"><i style="--m:url(assets/menubar-alert.svg)"></i><span data-i18n="st2">需要處理</span></div>
+        <div class="state"><i style="--m:url(assets/menubar-pause.svg)"></i><span data-i18n="st3">已暫停</span></div>
+      </div>
+    </div>
+    <div class="panel-slot"><div class="panel-scale" data-panel></div></div>
+  </div>
+</section>
+
+<!-- 三步驟 -->
+<section class="section pad">
+  <div class="wrap">
+    <h2 class="h2 center" data-i18n="stepsTitle">三個步驟開始使用</h2>
+    <div class="steps">
+      <div class="step"><div class="step-n">1</div><div class="step-t" data-i18n="steps.0.title">新增連線</div><div class="step-b" data-i18n="steps.0.body">選擇類型(NAS、雲端硬碟…),填網址與帳號,或在瀏覽器登入。</div></div>
+      <div class="step"><div class="step-n">2</div><div class="step-t" data-i18n="steps.1.title">在系統設定打開 Formount</div><div class="step-b" data-i18n="steps.1.body">macOS 規定要由使用者親自打開一次,首次使用的引導會帶著你做。</div></div>
+      <div class="step"><div class="step-n">3</div><div class="step-t" data-i18n="steps.2.title">在 Finder 開始使用</div><div class="step-b" data-i18n="steps.2.body">側邊欄出現「Formount - 名稱」,點一下就好。</div></div>
+    </div>
+    <div class="step-shots">
+      <figure>
+        <img class="light-only" src="assets/shots/light-add.webp" alt="" width="1600" height="1242" loading="lazy">
+        <img class="dark-only" src="assets/shots/dark-add.webp" alt="" width="1600" height="1242" loading="lazy">
+        <figcaption data-i18n="capAdd">新增連線:依類型選擇服務</figcaption>
+      </figure>
+      <figure>
+        <img class="light-only" src="assets/shots/light-onboarding.webp" alt="" width="1600" height="1242" loading="lazy">
+        <img class="dark-only" src="assets/shots/dark-onboarding.webp" alt="" width="1600" height="1242" loading="lazy">
+        <figcaption data-i18n="capOb">開始使用:首次使用引導</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- 安全、私密 -->
+<section class="section alt pad">
+  <div class="wrap">
+    <h2 class="h2 center" data-i18n="secTitle">安全、私密</h2>
+    <div class="sec-grid">
+      <div class="card sec"><div class="sec-ico"><svg class="i"><use href="assets/icons.svg#i-key-round"/></svg></div><div class="sec-t" data-i18n="sec.0.title">登入資料只在你的 Mac</div><div class="sec-b" data-i18n="sec.0.body">密碼與登入資料只存在你自己的 Mac(加密設定檔與鑰匙圈),不經過任何 Formount 伺服器。</div></div>
+      <div class="card sec"><div class="sec-ico"><svg class="i"><use href="assets/icons.svg#i-arrow-left-right"/></svg></div><div class="sec-t" data-i18n="sec.1.title">直接連到你的儲存空間</div><div class="sec-b" data-i18n="sec.1.body">Formount 直接連到你的儲存空間,檔案不經過第三方。</div></div>
+      <div class="card sec"><div class="sec-ico"><svg class="i"><use href="assets/icons.svg#i-shield-check"/></svg></div><div class="sec-t" data-i18n="sec.2.title">經過 Apple 公證</div><div class="sec-b" data-i18n="sec.2.body">App 經過 Apple 公證(notarized),更新套件有簽章驗證。</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 常見問題 -->
+<section id="faq" class="section pad">
+  <div class="faq">
+    <h2 class="h2 center" data-i18n="faqTitle">常見問題</h2>
+    <div class="faq-list">
+      <details open><summary><span data-i18n="faq.0.q">會把我的雲端硬碟整個下載到電腦嗎?</span><svg class="i"><use href="assets/icons.svg#i-chevron-down"/></svg></summary><p data-i18n="faq.0.a">不會。檔案打開時才下載,沒用的會自動清理。</p></details>
+      <details><summary><span data-i18n="faq.1.q">需要安裝 macFUSE 或降低系統安全性嗎?</span><svg class="i"><use href="assets/icons.svg#i-chevron-down"/></svg></summary><p data-i18n="faq.1.a">不用。Formount 使用 Apple 官方的 File Provider,和 iCloud 雲碟相同。</p></details>
+      <details><summary><span data-i18n="faq.2.q">為什麼要在系統設定裡打開 Formount?</span><svg class="i"><use href="assets/icons.svg#i-chevron-down"/></svg></summary><p data-i18n="faq.2.a">這是 macOS 的規定,所有使用 File Provider 的 App(包括 Dropbox、OneDrive 官方 App)第一次都要由使用者打開。</p></details>
+      <details><summary><span data-i18n="faq.3.q">斷線時會怎樣?</span><svg class="i"><use href="assets/icons.svg#i-chevron-down"/></svg></summary><p data-i18n="faq.3.a">Finder 不會卡住;已下載的檔案照常能開,網路恢復後自動連回來。</p></details>
+      <details><summary><span data-i18n="faq.4.q">兩個人同時改同一個檔案呢?</span><svg class="i"><use href="assets/icons.svg#i-chevron-down"/></svg></summary><p data-i18n="faq.4.a">兩份都會保留,你的版本會另存成「衝突複本」,不會覆蓋別人的修改。</p></details>
+      <details><summary><span data-i18n="faq.5.q">我的密碼安全嗎?</span><svg class="i"><use href="assets/icons.svg#i-chevron-down"/></svg></summary><p data-i18n="faq.5.a">只存在你的 Mac 上,不會傳給 Formount 或任何第三方。</p></details>
+      <details><summary><span data-i18n="faq.6.q">Synology 要怎麼設定?</span><svg class="i"><use href="assets/icons.svg#i-chevron-down"/></svg></summary><p data-i18n="faq.6.a">在 DSM 開啟 WebDAV Server,Formount 選 WebDAV,填 https://你的 NAS 位址:5006。</p></details>
+      <details><summary><span data-i18n="faq.7.q">收費嗎?</span><svg class="i"><use href="assets/icons.svg#i-chevron-down"/></svg></summary><p data-i18n="faq.7.a">不收費,Formount 可以免費下載使用。</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- 頁尾下載區 -->
+<section class="section alt pad center cta">
+  <img class="cta-icon light-only" src="assets/appicon.svg" alt="" loading="lazy"><img class="cta-icon dark-only" src="assets/appicon-dark.svg" alt="" loading="lazy">
+  <h2 class="h2" data-i18n="ctaTitle">下載 Formount</h2>
+  <p class="lead" data-i18n="ctaBody">打開 dmg 後,把 Formount 拖到「應用程式」資料夾。App 內建自動更新,裝一次就好。</p>
+  <div data-download></div>
+</section>
+
+</main>
+
+<footer class="foot pad">
+  <div class="wrap foot-in">
+    <div class="foot-brand">
+      <img class="light-only" src="assets/appicon.svg" alt="" loading="lazy"><img class="dark-only" src="assets/appicon-dark.svg" alt="" loading="lazy">
+      <div><b>Formount</b><span data-i18n="footBy">台灣獨立開發者 AndyShiu 製作</span><div class="muted" data-i18n="footName">名字來自 Formosa(福爾摩沙)+ mount(掛載)</div></div>
+    </div>
+    <div class="foot-links">
+      <a href="privacy.html" data-i18n="footPrivacy">隱私權政策</a>
+      <a href="https://github.com/AndyShiu/Formount-releases/releases" data-i18n="footRel">版本紀錄(GitHub)</a>
+      <span>© 2026 AndyShiu</span>
+    </div>
+  </div>
+</footer>
+
+<!-- 由 site.js 複製到 [data-download]、[data-finder]、[data-panel] 的範本 -->
+<template id="tpl-download">
+  <div class="dl desktop-only">
+    <a class="btn" href="https://github.com/AndyShiu/Formount-releases/releases/latest/download/Formount.dmg"><svg class="i"><use href="assets/icons.svg#i-download"/></svg><span data-i18n="download">免費下載</span></a>
+    <div class="req" data-i18n="req">macOS 15 以上 · Apple 晶片與 Intel 皆可</div>
+  </div>
+  <div class="mobile-only">
+    <div class="mcard">
+      <div class="ico"><svg class="i"><use href="assets/icons.svg#i-laptop"/></svg></div>
+      <div class="txt"><div class="t1" data-i18n="mobileTitle">在 Mac 上下載</div><div class="t2" data-i18n="mobileDesc">Formount 是 Mac App。用 Mac 打開 formount.andyshiu.com 就能下載。</div></div>
+      <button type="button" data-action="copy" data-i18n="copy">複製連結</button>
+    </div>
+    <div class="mreq" data-i18n="req">macOS 15 以上 · Apple 晶片與 Intel 皆可</div>
+  </div>
+</template>
+
+<template id="tpl-finder">
+  <div class="finder">
+    <div class="f-side">
+      <div class="f-lights"><i style="background:#ED6A5E"></i><i style="background:#F4BF4F"></i><i style="background:#61C554"></i></div>
+      <div class="f-cap" data-i18n="fd.fav">個人收藏</div>
+      <div class="f-item"><svg class="i"><use href="assets/icons.svg#i-clock"/></svg><span data-i18n="fd.favs.0">最近項目</span></div>
+      <div class="f-item"><svg class="i"><use href="assets/icons.svg#i-layout-grid"/></svg><span data-i18n="fd.favs.1">應用程式</span></div>
+      <div class="f-item"><svg class="i"><use href="assets/icons.svg#i-monitor"/></svg><span data-i18n="fd.favs.2">桌面</span></div>
+      <div class="f-item"><svg class="i"><use href="assets/icons.svg#i-file"/></svg><span data-i18n="fd.favs.3">文件</span></div>
+      <div class="f-item"><svg class="i"><use href="assets/icons.svg#i-circle-arrow-down"/></svg><span data-i18n="fd.favs.4">下載</span></div>
+      <div class="f-cap loc" data-i18n="fd.loc">位置</div>
+      <div class="f-item muted"><svg class="i"><use href="assets/icons.svg#i-hard-drive"/></svg><span>Macintosh HD</span></div>
+      <div class="f-item sel"><svg class="i"><use href="assets/icons.svg#i-cloud"/></svg><span data-i18n="fd.nas">Formount - 家裡的 NAS</span></div>
+      <div class="f-item muted"><svg class="i"><use href="assets/icons.svg#i-cloud"/></svg><span data-i18n="fd.gd">Formount - Google 雲端硬碟</span></div>
+    </div>
+    <div class="f-main">
+      <div class="f-bar">
+        <svg class="i"><use href="assets/icons.svg#i-chevron-left"/></svg><svg class="i fwd"><use href="assets/icons.svg#i-chevron-right"/></svg>
+        <div class="f-title" data-i18n="fd.title">家裡的 NAS</div>
+        <div class="f-tools"><svg class="i"><use href="assets/icons.svg#i-list"/></svg><svg class="i"><use href="assets/icons.svg#i-search"/></svg></div>
+      </div>
+      <div class="f-cols"><div data-i18n="fd.hName">名稱</div><div></div><div data-i18n="fd.hDate">修改日期</div><div style="text-align:right" data-i18n="fd.hSize">大小</div></div>
+      <div class="f-rows">
+        <div class="f-row"><div class="f-name"><i class="f-folder"></i><span data-i18n="fd.rows.0">照片 2026</span></div><div class="f-state"></div><div class="f-meta" data-i18n="fd.dates.0">今天 09:12</div><div class="f-size">—</div></div>
+        <div class="f-row"><div class="f-name"><i class="f-folder"></i><span data-i18n="fd.rows.1">專案提案</span></div><div class="f-state"></div><div class="f-meta" data-i18n="fd.dates.1">昨天 18:40</div><div class="f-size">—</div></div>
+        <div class="f-row"><div class="f-name"><i class="f-file" style="--c:#3B6FD6"></i><span data-i18n="fd.rows.2">封面設計.psd</span></div><div class="f-state"><i class="f-ring"></i></div><div class="f-meta" data-i18n="fd.dates.2">今天 10:21</div><div class="f-size">1.2 GB</div></div>
+        <div class="f-row"><div class="f-name"><i class="f-file" style="--c:#D9534F"></i><span data-i18n="fd.rows.3">會議記錄 0930.pdf</span></div><div class="f-state"></div><div class="f-meta" data-i18n="fd.dates.3">9月30日 16:05</div><div class="f-size">640 KB</div></div>
+        <div class="f-row"><div class="f-name"><i class="f-file" style="--c:#3FA35B"></i><span data-i18n="fd.rows.4">2026 年度預算.numbers</span></div><div class="f-state"><svg class="i"><use href="assets/icons.svg#i-cloud-download"/></svg></div><div class="f-meta" data-i18n="fd.dates.4">9月28日 11:30</div><div class="f-size">286 KB</div></div>
+        <div class="f-row"><div class="f-name"><i class="f-file" style="--c:#8E6BD8"></i><span data-i18n="fd.rows.5">婚禮影片 4K.mov</span></div><div class="f-state"><svg class="i"><use href="assets/icons.svg#i-cloud-download"/></svg></div><div class="f-meta" data-i18n="fd.dates.5">9月14日 20:02</div><div class="f-size">8.4 GB</div></div>
+        <div class="f-row"><div class="f-name"><i class="f-file" style="--c:#D9534F"></i><span data-i18n="fd.rows.6">合約掃描.pdf</span></div><div class="f-state"><svg class="i"><use href="assets/icons.svg#i-cloud-download"/></svg></div><div class="f-meta" data-i18n="fd.dates.6">8月2日 14:47</div><div class="f-size">2.1 MB</div></div>
+      </div>
+      <div class="f-status" data-i18n="fd.status">7 個項目 · 已下載 2 個</div>
+    </div>
+  </div>
+</template>
+
+<template id="tpl-panel">
+  <div class="mb">
+    <div class="mb-head">
+      <div class="mb-dot"><svg class="i"><use href="assets/icons.svg#i-arrow-up-down"/></svg></div>
+      <div class="mb-ht"><div class="mb-t1" data-i18n="mb.title">同步中 2 個檔案 · 2.1 MB/s</div><div class="mb-t2" data-i18n="mb.sub">4 組連線都正常</div></div>
+      <div class="mb-btn"><svg class="i"><use href="assets/icons.svg#i-app-window"/></svg></div>
+      <div class="mb-btn"><svg class="i"><use href="assets/icons.svg#i-settings"/></svg></div>
+    </div>
+    <div class="mb-body">
+      <div class="mb-cap" data-i18n="mb.conns">連線</div>
+      <div class="mb-conn"><div class="mb-tile" style="--h:255"><svg class="i"><use href="assets/icons.svg#i-server"/></svg></div><div class="mb-ct"><div class="mb-name" data-i18n="mb.names.0">家裡的 NAS</div><div class="mb-st"><svg class="i"><use href="assets/icons.svg#i-circle-check"/></svg><span data-i18n="mb.connected">已連線</span></div></div><div class="mb-folder"><svg class="i"><use href="assets/icons.svg#i-folder-open"/></svg></div><button class="mb-switch" type="button" role="switch" aria-checked="true" data-action="mount"></button></div>
+      <div class="mb-conn"><div class="mb-tile" style="--h:195"><svg class="i"><use href="assets/icons.svg#i-network"/></svg></div><div class="mb-ct"><div class="mb-name" data-i18n="mb.names.1">工作室共用</div><div class="mb-st"><svg class="i"><use href="assets/icons.svg#i-circle-check"/></svg><span data-i18n="mb.connected">已連線</span></div></div><div class="mb-folder"><svg class="i"><use href="assets/icons.svg#i-folder-open"/></svg></div><button class="mb-switch" type="button" role="switch" aria-checked="true" data-action="mount"></button></div>
+      <div class="mb-conn"><div class="mb-tile" style="--h:145"><svg class="i"><use href="assets/icons.svg#i-cloud"/></svg></div><div class="mb-ct"><div class="mb-name" data-i18n="mb.names.2">個人雲端</div><div class="mb-st"><svg class="i"><use href="assets/icons.svg#i-circle-check"/></svg><span data-i18n="mb.connected">已連線</span></div></div><div class="mb-folder"><svg class="i"><use href="assets/icons.svg#i-folder-open"/></svg></div><button class="mb-switch" type="button" role="switch" aria-checked="true" data-action="mount"></button></div>
+      <div class="mb-conn"><div class="mb-tile" style="--h:45"><svg class="i"><use href="assets/icons.svg#i-database"/></svg></div><div class="mb-ct"><div class="mb-name" data-i18n="mb.names.3">客戶交付</div><div class="mb-st"><svg class="i"><use href="assets/icons.svg#i-circle-check"/></svg><span data-i18n="mb.connected">已連線</span></div></div><div class="mb-folder"><svg class="i"><use href="assets/icons.svg#i-folder-open"/></svg></div><button class="mb-switch" type="button" role="switch" aria-checked="true" data-action="mount"></button></div>
+      <div class="mb-cap" data-i18n="mb.transfers">傳輸中</div>
+      <div class="mb-tr"><svg class="i"><use href="assets/icons.svg#i-arrow-up"/></svg><div class="mb-tr-b"><div class="mb-fn" data-i18n="mb.t0">2026 品牌提案_final_v3.key</div><div class="mb-bar"><i style="width:45%"></i></div><div class="mb-meta" data-i18n="mb.t0meta">家裡的 NAS · 45% · 3.2 MB / 7.1 MB · 1.2 MB/s · 剩 3 秒</div></div></div>
+      <div class="mb-tr"><svg class="i"><use href="assets/icons.svg#i-arrow-down"/></svg><div class="mb-tr-b"><div class="mb-fn">IMG_4821.HEIC</div><div class="mb-bar"><i style="width:80%"></i></div><div class="mb-meta" data-i18n="mb.t1meta">個人雲端 · 80% · 2.4 MB / 3.0 MB · 0.9 MB/s · 剩 1 秒</div></div></div>
+      <div class="mb-cap" data-i18n="mb.recent">最近完成</div>
+      <div class="mb-done"><svg class="i"><use href="assets/icons.svg#i-circle-check"/></svg><div class="mb-fn" data-i18n="mb.r0">會議記錄 10-01.md</div><div class="when" data-i18n="mb.r0meta">家裡的 NAS · 10:28</div></div>
+      <div class="mb-done"><svg class="i"><use href="assets/icons.svg#i-circle-check"/></svg><div class="mb-fn">IMG_4820.HEIC</div><div class="when" data-i18n="mb.r1meta">個人雲端 · 10:25</div></div>
+      <div class="mb-done"><svg class="i"><use href="assets/icons.svg#i-circle-check"/></svg><div class="mb-fn" data-i18n="mb.r2">素材包_v2.zip</div><div class="when" data-i18n="mb.r2meta">工作室共用 · 10:12</div></div>
+    </div>
+    <div class="mb-foot">
+      <svg class="i"><use href="assets/icons.svg#i-hard-drive"/></svg>
+      <div class="grow" data-i18n="mb.cache">本機複本 2.4 GB</div>
+      <div class="act" data-i18n="mb.open">打開 Formount</div>
+      <div class="act quiet" data-i18n="mb.quit">結束</div>
+    </div>
+  </div>
+</template>
+
+</body>
+</html>
