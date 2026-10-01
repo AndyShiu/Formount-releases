@@ -10,13 +10,13 @@
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" href="assets/appicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<link rel="stylesheet" href="styles.css?v=1790846955">
+<link rel="stylesheet" href="styles.css?v=1790848971">
 <script>
   try {
     var t = localStorage.getItem('formount-theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
   } catch (e) {}
 </script>
-<script src="site.js?v=1790846955" defer></script>
+<script src="site.js?v=1790848971" defer></script>
 </head>
 <body data-page="privacy">
 
@@ -54,7 +54,7 @@
       <section><h2 data-i18n="pv.sections.1.h">Formount 存取的資料</h2><p data-i18n="pv.sections.1.b">你新增連線後,Formount 會存取那個儲存空間裡的檔案與資料夾:名稱、大小、修改時間等資訊,以及你在 Finder 中打開或儲存的檔案內容。使用 Google 雲端硬碟時,Formount 透過 Google Drive API 存取你雲端硬碟中的檔案與資料夾(範圍:https://www.googleapis.com/auth/drive)。</p></section>
       <section><h2 data-i18n="pv.sections.2.h">資料的用途</h2><p data-i18n="pv.sections.2.b">這些資料只用來在 Finder 中顯示你的檔案,並在你打開、儲存、新增、重新命名、移動或刪除檔案時,與你的儲存空間同步。Formount 不會把資料用於廣告、分析、建立使用者輪廓、訓練 AI 模型,或任何與上述功能無關的用途。</p></section>
       <section><h2 data-i18n="pv.sections.3.h">資料的儲存</h2><p data-i18n="pv.sections.3.b">登入資料(密碼、存取金鑰、OAuth token)只存在你 Mac 上的加密設定檔與 macOS 鑰匙圈。打開過的檔案會在你的 Mac 上保留一份本機複本,方便下次快速開啟;一段時間沒用的複本會依你的設定自動清除。這些資料都不會離開你的 Mac,除非是直接傳送給你自己設定的儲存服務。</p></section>
-      <section><h2 data-i18n="pv.sections.4.h">資料的保護</h2><p data-i18n="pv.sections.4.b">Formount 與儲存服務之間使用加密連線(Google 雲端硬碟、OneDrive、Dropbox 一律使用 HTTPS)。登入資料以 macOS 鑰匙圈保護的金鑰加密後才寫入設定檔;本機複本存放在 macOS 的檔案提供者(File Provider)系統空間,只有你的使用者帳號能存取。</p></section>
+      <section><h2 data-i18n="pv.sections.4.h">資料的保護</h2><p data-i18n="pv.sections.4.b">Formount 與儲存服務之間使用加密連線(Google 雲端硬碟、OneDrive、Dropbox 一律使用 HTTPS)。登入資料以 macOS 鑰匙圈保護的金鑰加密後才寫入設定檔;本機複本存放在 macOS 的檔案供應商(File Provider)系統空間,只有你的使用者帳號能存取。</p></section>
       <section><h2 data-i18n="pv.sections.5.h">資料的分享與傳輸</h2><p data-i18n="pv.sections.5.b">Formount 直接透過加密連線(HTTPS 或你設定的協定)連到你自己的儲存服務,檔案不經過 Formount 或任何第三方的伺服器。我們不會出售、出租、分享或轉移你的資料給任何人,也沒有任何人(包括開發者)能讀取你的資料。</p></section>
       <section><h2 data-i18n="pv.sections.6.h">資料的保留期間</h2><p data-i18n="pv.sections.6.b">登入資料會保留到你刪除該連線為止。本機複本在一段時間沒有使用後會自動移除(預設 7 天、總量上限 10 GB,可在「本機複本」設定中調整),也可以隨時手動移除全部下載。Formount 不在其他地方保留任何資料。</p></section>
       <section><h2 data-i18n="pv.sections.7.h">刪除資料與撤銷存取</h2><p data-i18n="pv.sections.7.b">在 Formount 中刪除一組連線,會一併移除這台 Mac 上該連線的登入資料與本機複本;遠端的檔案不受影響。使用 Google 帳號登入的連線,也可以隨時到 Google 帳戶的「第三方應用程式與服務」(https://myaccount.google.com/permissions)撤銷 Formount 的存取權。</p></section>
