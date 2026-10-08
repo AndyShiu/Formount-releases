@@ -5,7 +5,7 @@
 const COPY = {
   zh: {
     pageTitle: 'Formount — 把 NAS、伺服器和雲端硬碟放進 Finder',
-    pageDesc: 'Formount 是免費的 macOS App,把 NAS、伺服器和雲端硬碟掛載到 Finder。支援 WebDAV、SMB、SFTP、FTP、S3、Google 雲端硬碟、OneDrive、Dropbox。',
+    pageDesc: 'Formount 是免費的 macOS App,把 NAS、伺服器和雲端硬碟掛載到 Finder。支援 WebDAV、SMB、SFTP、FTP、S3、Google 雲端硬碟、OneDrive、Dropbox、pCloud、Box。',
     privacyTitle: '隱私權政策 — Formount',
     langLabel: 'EN', themeLabel: '切換深淺色',
     navFeatures: '功能', navServices: '支援服務', navFaq: '常見問題', navPrivacy: '隱私權', navDownload: '下載',
@@ -16,7 +16,7 @@ const COPY = {
     svcEyebrow: '支援的服務', svcTitle: '一個 App,連上所有空間', svcSub: '可以同時設定很多組連線,各自獨立暫停、恢復。雲端硬碟是在瀏覽器登入,Formount 不會看到你的密碼。',
     gNas: 'NAS 與伺服器', gCloud: '雲端硬碟', gObj: '物件儲存',
     dWebdav: 'Synology、QNAP、Nextcloud 等 NAS', nSmb: 'SMB(網路芳鄰)', dSmb: '區域網路內的 Windows 或 NAS 分享資料夾', dSftp: '透過 SSH 連到 Linux 或 macOS 伺服器', dFtp: '網站主機與較舊的設備',
-    nGdrive: 'Google 雲端硬碟', dGdrive: '用 Google 帳號在瀏覽器登入', dOnedrive: '用 Microsoft 帳號在瀏覽器登入', dDropbox: '用 Dropbox 帳號在瀏覽器登入',
+    nGdrive: 'Google 雲端硬碟', dGdrive: '用 Google 帳號在瀏覽器登入', dOnedrive: '用 Microsoft 帳號在瀏覽器登入', dDropbox: '用 Dropbox 帳號在瀏覽器登入', dPcloud: '用 pCloud 帳號在瀏覽器登入', dBox: '用 Box 帳號在瀏覽器登入',
     nS3: 'S3 相容儲存', dS3: 'AWS S3、Cloudflare R2、Wasabi、MinIO',
     f1Title: '就在 Finder 裡', f1Body: '連線會出現在 Finder 側邊欄的「位置」下方,名稱是「Formount - 你取的名字」。打開、拖放、存檔、用 Photoshop 或 Final Cut 直接編輯,全都和本機資料夾一樣。不用學新介面。',
     f3Title: '不佔硬碟空間', f3Body: '檔案打開時才下載,Finder 裡看得到全部檔案,但電腦只存你用過的。一段時間沒用的檔案會自動清掉(預設 7 天、總量 10 GB,都可以調整),檔案仍然留在 Finder,下次打開時再下載。',
@@ -76,7 +76,7 @@ const COPY = {
   },
   en: {
     pageTitle: 'Formount — Your NAS, servers and cloud drives, right in Finder',
-    pageDesc: 'Formount is a free macOS app that mounts your NAS, servers and cloud drives in Finder. WebDAV, SMB, SFTP, FTP, S3, Google Drive, OneDrive and Dropbox.',
+    pageDesc: 'Formount is a free macOS app that mounts your NAS, servers and cloud drives in Finder. WebDAV, SMB, SFTP, FTP, S3, Google Drive, OneDrive, Dropbox, pCloud and Box.',
     privacyTitle: 'Privacy Policy — Formount',
     langLabel: '中文', themeLabel: 'Toggle dark mode',
     navFeatures: 'Features', navServices: 'Services', navFaq: 'FAQ', navPrivacy: 'Privacy', navDownload: 'Download',
@@ -87,7 +87,7 @@ const COPY = {
     svcEyebrow: 'Supported services', svcTitle: 'One app for all your storage', svcSub: 'Set up as many connections as you like and pause or resume each one on its own. Cloud drives sign in through your browser, so Formount never sees your password.',
     gNas: 'NAS & servers', gCloud: 'Cloud drives', gObj: 'Object storage',
     dWebdav: 'Synology, QNAP, Nextcloud and other NAS', nSmb: 'SMB', dSmb: 'Windows or NAS shared folders on your network', dSftp: 'Linux or macOS servers over SSH', dFtp: 'Web hosts and older devices',
-    nGdrive: 'Google Drive', dGdrive: 'Sign in with Google in your browser', dOnedrive: 'Sign in with Microsoft in your browser', dDropbox: 'Sign in with Dropbox in your browser',
+    nGdrive: 'Google Drive', dGdrive: 'Sign in with Google in your browser', dOnedrive: 'Sign in with Microsoft in your browser', dDropbox: 'Sign in with Dropbox in your browser', dPcloud: 'Sign in with pCloud in your browser', dBox: 'Sign in with Box in your browser',
     nS3: 'S3-compatible', dS3: 'AWS S3, Cloudflare R2, Wasabi, MinIO',
     f1Title: 'Right in Finder', f1Body: 'Each connection appears under Locations in the Finder sidebar as “Formount - your name for it”. Open, drag, save, or edit in Photoshop or Final Cut, just like a local folder. Nothing new to learn.',
     f3Title: 'Saves disk space', f3Body: 'Files download only when you open them. Finder shows everything, but your Mac only keeps what you’ve used. Files you haven’t touched in a while are cleared automatically (7 days and 10 GB by default, both adjustable) and stay in Finder, ready to download again.',
